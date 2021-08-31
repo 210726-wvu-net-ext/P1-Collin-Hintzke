@@ -5,10 +5,24 @@
     <UpgradeBackupLocation>C:\Users\colli\Revature\P1-Collin-Hintzke\RestaurantReviewer\Backup\</UpgradeBackupLocation>
     <OldToolsVersion>2.0</OldToolsVersion>
     <UserSecretsId>4c19baec-8572-4c95-8c81-d3c05a13480f</UserSecretsId>
+    <ApplicationIcon />
+    <OutputType>Exe</OutputType>
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Content Include=".vs\ProjectSettings.json" />
+    <Content Include=".vs\tasks.vs.json" />
+    <Content Include=".vs\VSWorkspaceState.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include=".vs\RestaurantReviewer\v16\" />
     <Folder Include="Entities\Migrations\" />
     <Folder Include="Views\User\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".vs\RestaurantReviewer\config\applicationhost.config" />
+    <None Include=".vs\RestaurantReviewer\DesignTimeBuild\.dtbcache.v2" />
+    <None Include=".vs\slnx.sqlite" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.9">
