@@ -9,7 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
-using RestaurantReviewer.Data;
+using RestaurantReviewer.Entities;
 
 namespace RestaurantReviewer
 {
@@ -36,8 +36,8 @@ namespace RestaurantReviewer
             });*/
             services.AddControllersWithViews();
 
-            services.AddDbContext<iRestaurant>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("RestaurantReviewerContext")));
+            services.AddDbContext<hintrestaurantdbContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("restdb")));
 
         }
 

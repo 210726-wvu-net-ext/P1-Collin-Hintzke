@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using RestaurantReviewer.Data;
+using RestaurantReviewer.Entities;
 using RestaurantReviewer.Models;
 using RestaurantReviewer.Models.Interfaces;
 
@@ -13,11 +13,11 @@ namespace RestaurantReviewer.Controllers
 {
     public class RestaurantsController : Controller
     {
-        private readonly Models.Interfaces.iRestaurant _context;
+        private readonly hintrestaurantdbContext _context;
 
-        public RestaurantsController(Data.iRestaurant context)
+        public RestaurantsController(hintrestaurantdbContext context)
         {
-            _context = (Models.Interfaces.iRestaurant)context;
+            _context = context;
         }
 
 

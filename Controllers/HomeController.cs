@@ -7,19 +7,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RestaurantReviewer.Entities;
 using RestaurantReviewer.Models;
-using RestaurantReviewer.Models.DataControl;
 
 namespace RestaurantReviewer.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private UserRepo _user;
 
-        public HomeController(ILogger<HomeController> logger, UserRepo user)
+        public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            _user = user;
         }
 
         public IActionResult Index()

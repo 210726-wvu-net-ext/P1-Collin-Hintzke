@@ -16,6 +16,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include=".vs\RestaurantReviewer\v16\" />
+    <Folder Include="Data\" />
     <Folder Include="Entities\Migrations\" />
     <Folder Include="Views\User\" />
   </ItemGroup>
