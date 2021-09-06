@@ -12,6 +12,8 @@ using Microsoft.EntityFrameworkCore;
 using RestaurantReviewer.Entities;
 using RestaurantReviewer.Models.DataControl;
 using RestaurantReviewer.Models.Interfaces;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using RestaurantReviewer.Models.ViewModels;
 
 namespace RestaurantReviewer
 {
@@ -38,6 +40,14 @@ namespace RestaurantReviewer
                 options.UseSqlServer(Configuration.GetConnectionString("restdb"));
                 options.LogTo(Console.WriteLine);
             });
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = "/Account/Login";
+                });
+
+
+            services.Configure<List<UserLoginDisplay>>(Configuration.GetSection("Users"));
 
             services.AddControllersWithViews();
             services.AddScoped<iRestaurant, RestRepo>();

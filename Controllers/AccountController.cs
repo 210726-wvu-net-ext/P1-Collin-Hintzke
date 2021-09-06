@@ -20,19 +20,21 @@ namespace RestaurantReviewer.Controllers
     {
 
         private readonly IOptions<List<UserLoginDisplay>> _users;
-        private UserManager<UserLoginDisplay> _test;
+
         private readonly iUser _repo;
-        public AccountController(IOptions<List<UserLoginDisplay>> users, iUser repo, UserManager<UserLoginDisplay> test)
+        public AccountController(IOptions<List<UserLoginDisplay>> users, iUser repo)
         {
-            _test = test;
+
             _users = users;
             _repo = repo;
         }
 
-        public IActionResult Index()
+        public IActionResult Login()
         {
             return View();
         }
+
+
         [HttpPost]
         public async Task<IActionResult> Login(UserLoginDisplay userLogin)
         {

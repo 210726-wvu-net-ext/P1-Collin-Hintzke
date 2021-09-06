@@ -18,7 +18,6 @@
     <Folder Include=".vs\RestaurantReviewer\v16\" />
     <Folder Include="Data\" />
     <Folder Include="Entities\Migrations\" />
-    <Folder Include="Views\Account\" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".vs\RestaurantReviewer\config\applicationhost.config" />

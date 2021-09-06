@@ -8,6 +8,8 @@ namespace RestaurantReviewer.Models.ViewModels
 {
     public class UserLoginDisplay
     {
+
+            [Display(Name = "User Name")]
             [Required]
             public string UserName { get; set; }
 
