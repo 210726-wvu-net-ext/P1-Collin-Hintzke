@@ -32,6 +32,11 @@ namespace RestaurantReviewer.Models.DataControl
             throw new NotImplementedException();
         }
 
+        public List<Review> GetAllReviewsForRestaurant(Restaurant rest)
+        {
+            throw new NotImplementedException();
+        }
+
         public Review GetReview(int id)
         {
             throw new NotImplementedException();

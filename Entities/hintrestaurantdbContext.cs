@@ -35,12 +35,12 @@ namespace RestaurantReviewer.Entities
                 entity.HasOne(d => d.Restaurant)
                     .WithMany(p => p.Ratings)
                     .HasForeignKey(d => d.RestaurantId)
-                    .HasConstraintName("FK__Ratings__Restaur__4D5F7D71");
+                    .HasConstraintName("FK__Ratings__Restaur__5F7E2DAC");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Ratings)
                     .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__Ratings__UserId__4C6B5938");
+                    .HasConstraintName("FK__Ratings__UserId__5E8A0973");
             });
 
             modelBuilder.Entity<Restaurant>(entity =>
@@ -55,6 +55,13 @@ namespace RestaurantReviewer.Entities
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(120)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Rating).HasColumnType("decimal(18, 0)");
+
+                entity.Property(e => e.ZipCode)
+                    .IsRequired()
+                    .HasMaxLength(12)
                     .IsUnicode(false);
             });
 

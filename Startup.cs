@@ -10,6 +10,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using RestaurantReviewer.Entities;
+using RestaurantReviewer.Models.DataControl;
+using RestaurantReviewer.Models.Interfaces;
 
 namespace RestaurantReviewer
 {
@@ -26,19 +28,21 @@ namespace RestaurantReviewer
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
-/*
-            services.AddScoped<Irepository, Repository>();
-            services.AddDbContext<RestaurantDbContext>(options =>
-            {
-                options.UseSqlServer(Configuration.GetConnectionString("RestDb");
-                options.LogTo(Console.WriteLine);
-            });*/
-            services.AddControllersWithViews();
+
+           /* services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("restdb")));*/
+
 
             services.AddDbContext<hintrestaurantdbContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("restdb")));
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("restdb"));
+                options.LogTo(Console.WriteLine);
+            });
 
+            services.AddControllersWithViews();
+            services.AddScoped<iRestaurant, RestRepo>();
+            services.AddScoped<iUser, UserRepo>();
+            services.AddScoped<iReview, ReviewRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,6 +61,7 @@ namespace RestaurantReviewer
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {

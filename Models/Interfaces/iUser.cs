@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace RestaurantReviewer.Models.Interfaces
 {
-    interface iUser
+    public interface iUser
     {
         User GetUser(int id);
         List<User> GetAllUsers();

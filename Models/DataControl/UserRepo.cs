@@ -24,7 +24,12 @@ namespace RestaurantReviewer.Models.DataControl
 
         public List<User> GetAllUsers()
         {
-            throw new NotImplementedException();
+            return _context.Users.Select(u => new User {
+                Name = u.Name,
+                Pass = u.Pass,
+                DoB = u.DoB,
+                IsAdmin = u.IsAdmin
+            }).ToList();
         }
 
         public User GetUser(string user, string pass)
@@ -33,14 +38,13 @@ namespace RestaurantReviewer.Models.DataControl
                 .FirstOrDefault(player => player.Name == user);
             if (newUser != null)
             {
-                
+
                 if (newUser.Pass == pass)
                 {
-                    return new User(newUser.Name, newUser.Pass);
+                    return new User(newUser.Name, newUser.Pass, newUser.DoB, newUser.IsAdmin);
                 }
-                else Console.WriteLine("Login Failed Please try again");
-                return Login(Console.ReadLine());
-
+                else
+                    return NewUser();
             }
             else
             {

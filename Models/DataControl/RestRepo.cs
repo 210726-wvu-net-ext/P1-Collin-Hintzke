@@ -32,7 +32,7 @@ namespace RestaurantReviewer.Models.DataControl
         public List<Restaurant> GetAllRestaurants()
         {
             return _context.Restaurants.Select(
-                rest => new Models.Restaurant(rest.Id, rest.Name, rest.Location)
+                rest => new Restaurant(rest.Id, rest.Name, rest.Location, rest.ZipCode, rest.IsFast, rest.NumberOfStores, rest.DateAdded)
             ).ToList();
             
         }
@@ -52,9 +52,15 @@ namespace RestaurantReviewer.Models.DataControl
             throw new NotImplementedException();
         }
 
-        Restaurant iRestaurant.GetRestaurant(string name)
+        public Restaurant GetRestaurantByName(string name)
         {
             throw new NotImplementedException();
+        }
+        public Restaurant GetRestaurantById(int id)
+        {
+
+            throw new NotImplementedException();
+
         }
     }
 }
