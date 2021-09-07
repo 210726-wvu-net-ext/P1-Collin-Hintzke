@@ -52,7 +52,6 @@ namespace RestaurantReviewer.Controllers
                 var list = _repo.GetAllRestaurants();
                 return View(list);
             }
-            return null;
         }
 
         // GET: RestaurantsController/Details/5
