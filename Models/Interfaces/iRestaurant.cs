@@ -13,12 +13,13 @@ namespace RestaurantReviewer.Models.Interfaces
         List<Restaurant> GetAllRestaurants();
         List<Restaurant> GetRestaurantsByName(string name);
         List<Restaurant> GetRestaurantsByZip(string zip);
+        List<Restaurant> GetRestaurantsByAddress(string add);
 
         Restaurant NewRestaurant();
         void DeleteRestaurant(Restaurant rest);
 
         void UpdateRestaurant(RestaurantDisplay rest);
-
+        List<Restaurant> SearchRestaurants(string search);
 
 
 

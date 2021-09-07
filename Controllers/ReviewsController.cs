@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RestaurantReviewer.Entities;
 using RestaurantReviewer.Models;
 using RestaurantReviewer.Models.Interfaces;
+using RestaurantReviewer.Models.ViewModels;
 
 namespace RestaurantReviewer.Controllers
 {
@@ -26,6 +28,8 @@ namespace RestaurantReviewer.Controllers
         
         public IActionResult Index(int id)
         {
+            TempData["RestaurantId"] = id;
+            ViewData["AvgRating"] = _repo.AverageRating(_repo.GetAllReviewsByRiD(id));
             return View(_repo.GetAllReviewsByRiD(id));
         }
 
@@ -37,7 +41,7 @@ namespace RestaurantReviewer.Controllers
                 return NotFound();
             }
 
-            var review = await _context.Review
+            var review = await _context.Ratings
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (review == null)
             {
@@ -50,6 +54,7 @@ namespace RestaurantReviewer.Controllers
         // GET: Reviews/Create
         public IActionResult Create()
         {
+
             return View();
         }
 
@@ -58,15 +63,25 @@ namespace RestaurantReviewer.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Score,User,Comment,RestaurantId")] Review review)
+        [Authorize]
+        public async Task<IActionResult> Create(ReviewDisplay review)
         {
-            if (ModelState.IsValid)
+
+            
+            review.RestaurantId = (int)TempData["RestaurantId"];
+            try
             {
-                _context.Add(review);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                review.User = (int)TempData["UserId"];
+            } catch (Exception e)
+            {
+                //  log the exception
+            } finally
+            {
+            _repo.NewReview(review);
             }
-            return View(review);
+            
+            
+            return View("Index", _repo.GetAllReviewsByRiD(review.RestaurantId));
         }
 
         // GET: Reviews/Edit/5
@@ -77,7 +92,7 @@ namespace RestaurantReviewer.Controllers
                 return NotFound();
             }
 
-            var review = await _context.Review.FindAsync(id);
+            var review = await _context.Ratings.FindAsync(id);
             if (review == null)
             {
                 return NotFound();
@@ -119,39 +134,33 @@ namespace RestaurantReviewer.Controllers
             }
             return View(review);
         }
-
+        [Authorize]
         // GET: Reviews/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var review = await _context.Review
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (review == null)
-            {
-                return NotFound();
-            }
+            _repo.DeleteReview(id);
+            return RedirectToAction(nameof(Index));
 
-            return View(review);
+
+           // return View(review);
         }
 
         // POST: Reviews/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var review = await _context.Review.FindAsync(id);
-            _context.Review.Remove(review);
+            var review = await _context.Ratings.FindAsync(id);
+            _context.Ratings.Remove(review);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ReviewExists(int id)
         {
-            return _context.Review.Any(e => e.Id == id);
+            return _context.Ratings.Any(e => e.Id == id);
         }
     }
 }

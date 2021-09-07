@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using RestaurantReviewer.Models;
 
 #nullable disable
 
@@ -29,19 +28,18 @@ namespace RestaurantReviewer.Entities
             modelBuilder.Entity<Rating>(entity =>
             {
                 entity.Property(e => e.Message)
-                    .IsRequired()
                     .HasMaxLength(300)
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.Restaurant)
                     .WithMany(p => p.Ratings)
                     .HasForeignKey(d => d.RestaurantId)
-                    .HasConstraintName("FK__Ratings__Restaur__5F7E2DAC");
+                    .HasConstraintName("FK__Ratings__Restaur__690797E6");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Ratings)
                     .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__Ratings__UserId__5E8A0973");
+                    .HasConstraintName("FK__Ratings__UserId__681373AD");
             });
 
             modelBuilder.Entity<Restaurant>(entity =>
@@ -49,19 +47,16 @@ namespace RestaurantReviewer.Entities
                 entity.Property(e => e.DateAdded).HasColumnType("datetime");
 
                 entity.Property(e => e.Location)
-                    .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Name)
-                    .IsRequired()
                     .HasMaxLength(120)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Rating).HasColumnType("decimal(18, 0)");
 
                 entity.Property(e => e.ZipCode)
-                    .IsRequired()
                     .HasMaxLength(12)
                     .IsUnicode(false);
             });
@@ -69,17 +64,14 @@ namespace RestaurantReviewer.Entities
             modelBuilder.Entity<User>(entity =>
             {
                 entity.Property(e => e.DoB)
-                    .IsRequired()
                     .HasMaxLength(100)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Name)
-                    .IsRequired()
                     .HasMaxLength(70)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Pass)
-                    .IsRequired()
                     .HasMaxLength(70)
                     .IsUnicode(false);
             });
@@ -88,7 +80,5 @@ namespace RestaurantReviewer.Entities
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
-
-        public DbSet<RestaurantReviewer.Models.Review> Review { get; set; }
     }
 }

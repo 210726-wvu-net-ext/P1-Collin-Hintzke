@@ -6,6 +6,7 @@
 
 <h1>Index</h1>
 
+<h3>Avagerage Score : @ViewData["AvgRating"]</h3>
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -16,14 +17,9 @@
                 @Html.DisplayNameFor(model => model.Score)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.User)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Comment)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RestaurantId)
-            </th>
+
             <th></th>
         </tr>
     </thead>
@@ -34,18 +30,20 @@
                 @Html.DisplayFor(modelItem => item.Score)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.User)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Comment)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RestaurantId)
             </td>
             <td>
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
+
 }
+
+
     </tbody>
-</table>
+@*    @{int total;
+    @foreach (var item in Model)
+    {
+        total += item.Score;
+    }*@
+    </table>

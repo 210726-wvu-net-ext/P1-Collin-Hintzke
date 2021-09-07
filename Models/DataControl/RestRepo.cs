@@ -40,12 +40,16 @@ namespace RestaurantReviewer.Models.DataControl
 
         public List<Restaurant> GetRestaurantsByName(string name)
         {
-            throw new NotImplementedException();
+            return _context.Restaurants.Where(n => n.Name.StartsWith(name)).Select(x => new Restaurant(x.Id, x.Name, x.Location, x.ZipCode, x.IsFast, x.NumberOfStores, x.DateAdded)).ToList();
         }
-
+        public List<Restaurant> GetRestaurantsByAddress(string add)
+        {
+            return _context.Restaurants.Where(n => n.Location.StartsWith(add)).Select(x => new Restaurant(x.Id, x.Name, x.Location, x.ZipCode, x.IsFast, x.NumberOfStores, x.DateAdded)).ToList();
+        }
         public List<Restaurant> GetRestaurantsByZip(string zip)
         {
-            throw new NotImplementedException();
+
+            return _context.Restaurants.Where(n => n.ZipCode.StartsWith(zip)).Select(x => new Restaurant(x.Id, x.Name, x.Location, x.ZipCode, x.IsFast, x.NumberOfStores, x.DateAdded)).ToList();
         }
 
         public Restaurant NewRestaurant()
@@ -79,6 +83,11 @@ namespace RestaurantReviewer.Models.DataControl
             _context.SaveChanges();
 
            
+        }
+
+        public List<Restaurant> SearchRestaurants(string search)
+        {
+            return null;
         }
     }
 }

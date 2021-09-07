@@ -10,10 +10,10 @@ namespace RestaurantReviewer.Models.Interfaces
     {
         User GetUser(int id);
         List<User> GetAllUsers();
-        void NewUser(UserSignUpDisplay user);
+        int NewUser(UserSignUpDisplay user);
         string DeleteUser();
 
-
+        int GetUserByName(UserLoginDisplay user);
 
 
 

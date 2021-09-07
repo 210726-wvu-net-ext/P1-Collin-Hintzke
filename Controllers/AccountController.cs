@@ -43,8 +43,13 @@ namespace RestaurantReviewer.Controllers
 
             if (!(user is null))
             {
+                if (user.Name.Contains("Admin"))
+                {
+                    TempData["isAdmin"] = true;
+                }
+                TempData["UserId"] = _repo.GetUserByName(userLogin);
                 var claims = new List<Claim>
-            {
+                {
                 new Claim(ClaimTypes.Name,userLogin.UserName),
                 new Claim("FullName", userLogin.UserName),
                 new Claim(ClaimTypes.Role, "Administrator"),
@@ -63,7 +68,6 @@ namespace RestaurantReviewer.Controllers
                     CookieAuthenticationDefaults.AuthenticationScheme,
                     new ClaimsPrincipal(claimsIdentity),
                     authProperties);
-
                 return RedirectToAction("Index", "Restaurants");
 
             }
@@ -79,7 +83,6 @@ namespace RestaurantReviewer.Controllers
         [HttpPost]
         public async Task<IActionResult> SignUp(UserSignUpDisplay user)
         {
-            _repo.NewUser(user);
             return RedirectToAction("Login");
         }
 

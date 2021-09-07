@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using RestaurantReviewer.Entities;
 using RestaurantReviewer.Models.Interfaces;
+using RestaurantReviewer.Models.ViewModels;
 
 namespace RestaurantReviewer.Models.DataControl
 {
@@ -22,57 +24,57 @@ namespace RestaurantReviewer.Models.DataControl
 
         }
 
-        public void DeleteReview(Review review, User user)
+        public void DeleteReview(int id)
         {
-            throw new NotImplementedException();
+            var review = _context.Ratings.FirstOrDefault(r => r.Id == id);
+            _context.Ratings.Remove(review);
+            _context.SaveChanges();
         }
 
         public List<Review> GetAllReviews()
         {
-            throw new NotImplementedException();
+            return _context.Ratings.Select(
+                 Review => new Review(Review.Id, Review.Score, Review.RestaurantId, Review.Message, Review.UserId)
+             ).ToList();
         }
 
         public List<Review> GetAllReviewsByRiD(int id)
         {
             List<Review> list = _context.Ratings.Select(
-                Review => new Review(Review.Id, Review.Score, Review.RestaurantId, Review.Message, Review.User)
+                Review => new Review(Review.Id, Review.Score, Review.UserId, Review.Message, Review.RestaurantId)
             ).ToList();
             List<Review> query = list.Where(Review => Review.RestaurantId == id).ToList();
             query.Reverse();
             return query;
+
         }
-
-        public List<Review> GetAllReviewsForRestaurant(Restaurant rest)
+        public decimal AverageRating(List<Review> list)
         {
-            /* return _context.Ratings.Where(rate => rate.Id == rest.Id).Select(rate => new Review {
-                 Score = rate.Score,
-                 Comment = rate.Message,
-                 User = rate.UserId,
-                 RestaurantId = rate.RestaurantId
-                 }).ToList();*/
+            decimal count = 0;
+            if (list.Count == 0)
+            {
+                return 0;
+            }
+            foreach (var item in list)
+            {
+                count += Convert.ToDecimal(item.Score);
+            }
 
-            throw new NotImplementedException();
-
+            return Math.Round(count, 2);
         }
 
         public Review GetReview(int id)
         {
-            throw new NotImplementedException();
+            var Review = _context.Ratings.FirstOrDefaultAsync(m => m.Id == id).Result;
+            Review rev = new Review(Review.Id, Review.Score, Review.UserId, Review.Message, Review.RestaurantId);
+            return rev;
         }
 
-        public List<Review> GetReviewByUser(int id)
+        public void NewReview(ReviewDisplay rev)
         {
-            throw new NotImplementedException();
-        }
-
-        public List<Review> GetReviewByUser(User user, int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Review NewReview()
-        {
-            throw new NotImplementedException();
+            
+            _context.Ratings.Add(new Entities.Rating { Message = rev.Comment, RestaurantId = rev.RestaurantId, Score = rev.Score, UserId = rev.User});
+            _context.SaveChanges();
         }
     }
 }

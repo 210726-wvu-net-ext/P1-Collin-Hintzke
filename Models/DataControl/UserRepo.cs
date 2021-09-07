@@ -36,7 +36,7 @@ namespace RestaurantReviewer.Models.DataControl
         public User GetUser(string user, string pass)
         {
             Entities.User newUser = _context.Users
-                .FirstOrDefault(player => player.Name == user);
+                .FirstOrDefault(player => player.Name == user && player.Pass == pass);
             if (newUser != null)
             {
 
@@ -44,8 +44,8 @@ namespace RestaurantReviewer.Models.DataControl
                 {
                     return new User(newUser.Name, newUser.Pass, newUser.DoB, newUser.IsAdmin);
                 }
-                else throw new NotImplementedException();
 
+                return null;
             }
             else
             {
@@ -59,17 +59,24 @@ namespace RestaurantReviewer.Models.DataControl
             throw new NotImplementedException();
         }
 
-        public void NewUser(UserSignUpDisplay user)
+        public int NewUser(UserSignUpDisplay user)
         {
             _context.Users.Add(new Entities.User { Name = user.Username, Pass = user.Password, DoB = user.DoB.ToString() }) ;
             _context.SaveChanges();
+            return _context.Users.FirstOrDefault(r => r.Pass == user.Password && r.Name == user.Username).Id;
+           
         }
 
         public User GetUser(int id)
         {
             throw new NotImplementedException();
         }
-
+        public int GetUserByName(UserLoginDisplay rev)
+        {
+            Entities.User user = _context.Users
+                .FirstOrDefault(player => player.Name == rev.UserName && player.Pass == rev.Password);
+            return user.Id;
+        }
         string iUser.DeleteUser()
         {
             throw new NotImplementedException();

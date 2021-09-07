@@ -27,10 +27,32 @@ namespace RestaurantReviewer.Controllers
 
         }
         // GET: RestaurantsController
-        public ActionResult Index()
+        [HttpGet]
+        public ActionResult Index(string SearchBy, string search)
         {
-            var list = _repo.GetAllRestaurants();
-            return View(list);
+            if(search == "")
+            {
+                return View(_repo.GetAllRestaurants());
+            }
+            if(SearchBy == "Name")
+            {
+                return View(_repo.GetRestaurantsByName(search));
+            }
+            else if(SearchBy == "ZipCode")
+            {
+                return View(_repo.GetRestaurantsByZip(search));
+            }
+            else if(SearchBy == "Address")
+            {
+                return View(_repo.GetRestaurantsByAddress(search));
+
+            }
+            else
+            {
+                var list = _repo.GetAllRestaurants();
+                return View(list);
+            }
+            return null;
         }
 
         // GET: RestaurantsController/Details/5

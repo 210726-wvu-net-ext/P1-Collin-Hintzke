@@ -7,8 +7,8 @@ namespace RestaurantReviewer.Models
 {
     public class Review
     {
-        private string message;
-        private int? userId;
+        private string Message;
+        private int userId;
 
         public int Id { get; set; }
         public int Score { get; set; }
@@ -27,21 +27,13 @@ namespace RestaurantReviewer.Models
 
         }
 
-        public Review(int id, int score, int? restaurantId, string message, int? userId)
-        {
-            Id = id;
-            Score = score;
-            RestaurantId = restaurantId;
-            this.message = message;
-            this.userId = userId;
-        }
 
-        public Review(int id, int score, int? restaurantId, string message, Entities.User user)
+        public Review(int id, int score, int restaurantId, string message, Entities.User user)
         {
             Id = id;
             Score = score;
             RestaurantId = restaurantId;
-            this.message = message;
+            Comment = message;
             User1 = user;
         }
     }
