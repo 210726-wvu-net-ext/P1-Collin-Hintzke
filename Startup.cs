@@ -14,6 +14,8 @@ using RestaurantReviewer.Models.DataControl;
 using RestaurantReviewer.Models.Interfaces;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using RestaurantReviewer.Models.ViewModels;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace RestaurantReviewer
 {
@@ -40,14 +42,42 @@ namespace RestaurantReviewer
                 options.UseSqlServer(Configuration.GetConnectionString("restdb"));
                 options.LogTo(Console.WriteLine);
             });
+
+
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
-                    options.LoginPath = "/Account/Login";
+                    options.LoginPath = "/login";
+                    options.AccessDeniedPath = "/login";
+                    options.Events = new CookieAuthenticationEvents() {
+                        OnSigningIn = async context =>
+                        {
+                            var principal = context.Principal;
+                            if (principal.HasClaim(c => c.Type == ClaimTypes.NameIdentifier))
+                            {
+                                if (principal.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value == "Admin")
+                                {
+                                    var claimsIdentity = principal.Identity as ClaimsIdentity;
+                                    claimsIdentity.AddClaim(new Claim(ClaimTypes.Role, "Admin"));
+                                }
+                            }
+                            await Task.CompletedTask;
+                        },
+                        OnSignedIn = async context =>
+                        {
+                            await Task.CompletedTask;
+                        },
+                        OnValidatePrincipal = async context =>
+                        {
+                            await Task.CompletedTask;
+                        }
+                    };
                 });
 
+            
 
-            services.Configure<List<UserLoginDisplay>>(Configuration.GetSection("Users"));
+
+            services.Configure<List<User>>(Configuration.GetSection("Users"));
 
             services.AddControllersWithViews();
             services.AddScoped<iRestaurant, RestRepo>();

@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using RestaurantReviewer.Models;
 using RestaurantReviewer.Models.DataControl;
 using RestaurantReviewer.Models.Interfaces;
+using RestaurantReviewer.Models.ViewModels;
+using Serilog;
 
 namespace RestaurantReviewer.Controllers
 {
@@ -59,29 +63,34 @@ namespace RestaurantReviewer.Controllers
         }
 
         // GET: RestaurantsController/Edit/5
-        public ActionResult Edit(int id)
+        [HttpGet]
+        public IActionResult Edit(int id)
         {
-
-            var res = _repo.GetAllRestaurants().FirstOrDefault(x => x.Id == id);
-            return View(res);
+            
+            return View(_repo.GetRestaurantById(id));
         }
 
         // POST: RestaurantsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        [Authorize]
+        public IActionResult Edit(int id, RestaurantDisplay rest)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+               
+                _repo.UpdateRestaurant(rest);
+
             }
             catch
             {
                 return View();
             }
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: RestaurantsController/Delete/5
+        [Authorize]
         public ActionResult Delete(int id)
         {
             return View();
@@ -90,6 +99,7 @@ namespace RestaurantReviewer.Controllers
         // POST: RestaurantsController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Delete(int id, IFormCollection collection)
         {
             try

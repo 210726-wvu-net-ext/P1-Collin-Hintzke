@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using RestaurantReviewer.Models;
 
 #nullable disable
 
@@ -87,5 +88,7 @@ namespace RestaurantReviewer.Entities
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+        public DbSet<RestaurantReviewer.Models.Review> Review { get; set; }
     }
 }

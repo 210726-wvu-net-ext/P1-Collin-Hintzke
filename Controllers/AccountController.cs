@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using RestaurantReviewer.Models;
 using RestaurantReviewer.Models.DataControl;
 using RestaurantReviewer.Models.Interfaces;
 using RestaurantReviewer.Models.ViewModels;
@@ -19,12 +20,12 @@ namespace RestaurantReviewer.Controllers
     public class AccountController : Controller
     {
 
-        private readonly IOptions<List<UserLoginDisplay>> _users;
+
+        private readonly IOptions<List<User>> _users;
 
         private readonly iUser _repo;
-        public AccountController(IOptions<List<UserLoginDisplay>> users, iUser repo)
+        public AccountController(IOptions<List<User>> users, iUser repo)
         {
-
             _users = users;
             _repo = repo;
         }
@@ -63,11 +64,29 @@ namespace RestaurantReviewer.Controllers
                     new ClaimsPrincipal(claimsIdentity),
                     authProperties);
 
-                return View();
+                return RedirectToAction("Index", "Restaurants");
 
             }
 
             return Redirect("/Shared/Error");
         }
+        [HttpGet]
+        public IActionResult SignUp()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SignUp(UserSignUpDisplay user)
+        {
+            _repo.NewUser(user);
+            return RedirectToAction("Login");
+        }
+
+
+
+
+
+
     }
 }

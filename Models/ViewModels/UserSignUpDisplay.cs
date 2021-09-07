@@ -8,14 +8,14 @@ namespace RestaurantReviewer.Models.ViewModels
 {
     public class UserSignUpDisplay
     {
-        [Required]
-        public string Name { get; set; }
 
         [Required]
         public string Username { get; set; }
 
         [Required]
         public string Password { get; set; }
+
+        public DateTime DoB { get; set; }
 
     }
 }

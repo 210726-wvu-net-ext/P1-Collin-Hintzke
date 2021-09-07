@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using RestaurantReviewer.Models.ViewModels;
 
 namespace RestaurantReviewer.Models.Interfaces
 {
@@ -15,6 +16,8 @@ namespace RestaurantReviewer.Models.Interfaces
 
         Restaurant NewRestaurant();
         void DeleteRestaurant(Restaurant rest);
+
+        void UpdateRestaurant(RestaurantDisplay rest);
 
 
 

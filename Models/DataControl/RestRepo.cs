@@ -1,6 +1,7 @@
 ﻿
 using RestaurantReviewer.Entities;
 using RestaurantReviewer.Models.Interfaces;
+using RestaurantReviewer.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,8 +60,25 @@ namespace RestaurantReviewer.Models.DataControl
         public Restaurant GetRestaurantById(int id)
         {
 
-            throw new NotImplementedException();
+            var rest = _context.Restaurants.FirstOrDefault(r => r.Id == id);
+            Restaurant newRest = new Restaurant(rest.Id, rest.Name, rest.Location, rest.ZipCode, rest.IsFast, rest.NumberOfStores, rest.DateAdded);
+            return newRest;
 
+        }
+
+        public void UpdateRestaurant (RestaurantDisplay rest)
+        {
+            var OriginalRest = _context.Restaurants.FirstOrDefault(r => r.Id == rest.Id);
+
+            OriginalRest.IsFast = rest.IsFast;
+            OriginalRest.Location = rest.Location;
+            OriginalRest.Name = rest.Name;
+            OriginalRest.NumberOfStores = rest.NumberOfStores;
+            OriginalRest.ZipCode = rest.ZipCode;
+            OriginalRest.DateAdded = DateTime.UtcNow;
+            _context.SaveChanges();
+
+           
         }
     }
 }

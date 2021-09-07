@@ -30,4 +30,9 @@ namespace RestaurantReviewer.Models
 
 
     }
+    public static class ApplicationRoles
+    {
+        public const string Member = "Member";
+        public const string Admin = "Admin";
+    }
 }

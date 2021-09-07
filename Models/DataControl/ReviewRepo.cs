@@ -32,9 +32,20 @@ namespace RestaurantReviewer.Models.DataControl
             throw new NotImplementedException();
         }
 
+        public List<Review> GetAllReviewsByRiD(int id)
+        {
+            return _context.Ratings.Where(rate => rate.Id == id).Select(rate => new Models.Review {
+                Score = rate.Score,
+                Comment = rate.Message,
+            }).ToList();
+        }
+
         public List<Review> GetAllReviewsForRestaurant(Restaurant rest)
         {
-            throw new NotImplementedException();
+            return _context.Ratings.Where(rate => rate.Id == rest.Id).Select(rate => new Models.Review {
+                Score = rate.Score,
+                Comment = rate.Message,
+                }).ToList();
         }
 
         public Review GetReview(int id)

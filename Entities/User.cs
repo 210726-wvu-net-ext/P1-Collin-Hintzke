@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
 
 #nullable disable
 
@@ -19,5 +20,11 @@ namespace RestaurantReviewer.Entities
         public int IsAdmin { get; set; }
 
         public virtual ICollection<Rating> Ratings { get; set; }
+    }
+
+    public static class ApplicationRoles
+    {
+        public const string Member = "Member";
+        public const string Admin = "Admin";
     }
 }

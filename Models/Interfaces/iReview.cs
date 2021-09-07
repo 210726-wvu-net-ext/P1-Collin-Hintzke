@@ -13,6 +13,7 @@ namespace RestaurantReviewer.Models.Interfaces
         void DeleteReview(Review review, User user);
         Review GetReview(int id);
         List<Review> GetAllReviewsForRestaurant(Restaurant rest);
+        List<Review> GetAllReviewsByRiD(int id);
 
         
 

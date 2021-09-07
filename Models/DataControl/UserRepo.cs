@@ -1,5 +1,6 @@
 ﻿using RestaurantReviewer.Entities;
 using RestaurantReviewer.Models.Interfaces;
+using RestaurantReviewer.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,8 +44,8 @@ namespace RestaurantReviewer.Models.DataControl
                 {
                     return new User(newUser.Name, newUser.Pass, newUser.DoB, newUser.IsAdmin);
                 }
-                else
-                    return NewUser();
+                else throw new NotImplementedException();
+
             }
             else
             {
@@ -58,9 +59,10 @@ namespace RestaurantReviewer.Models.DataControl
             throw new NotImplementedException();
         }
 
-        public User NewUser()
+        public void NewUser(UserSignUpDisplay user)
         {
-            throw new NotImplementedException();
+            _context.Users.Add(new Entities.User { Name = user.Username, Pass = user.Password, DoB = user.DoB.ToString() }) ;
+            _context.SaveChanges();
         }
 
         public User GetUser(int id)
