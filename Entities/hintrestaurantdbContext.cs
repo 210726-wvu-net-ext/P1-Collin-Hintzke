@@ -28,19 +28,18 @@ namespace RestaurantReviewer.Entities
             modelBuilder.Entity<Rating>(entity =>
             {
                 entity.Property(e => e.Message)
-                    .IsRequired()
                     .HasMaxLength(300)
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.Restaurant)
                     .WithMany(p => p.Ratings)
                     .HasForeignKey(d => d.RestaurantId)
-                    .HasConstraintName("FK__Ratings__Restaur__4D5F7D71");
+                    .HasConstraintName("FK__Ratings__Restaur__690797E6");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Ratings)
                     .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__Ratings__UserId__4C6B5938");
+                    .HasConstraintName("FK__Ratings__UserId__681373AD");
             });
 
             modelBuilder.Entity<Restaurant>(entity =>
@@ -48,30 +47,31 @@ namespace RestaurantReviewer.Entities
                 entity.Property(e => e.DateAdded).HasColumnType("datetime");
 
                 entity.Property(e => e.Location)
-                    .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Name)
-                    .IsRequired()
                     .HasMaxLength(120)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Rating).HasColumnType("decimal(18, 0)");
+
+                entity.Property(e => e.ZipCode)
+                    .HasMaxLength(12)
                     .IsUnicode(false);
             });
 
             modelBuilder.Entity<User>(entity =>
             {
                 entity.Property(e => e.DoB)
-                    .IsRequired()
                     .HasMaxLength(100)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Name)
-                    .IsRequired()
                     .HasMaxLength(70)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Pass)
-                    .IsRequired()
                     .HasMaxLength(70)
                     .IsUnicode(false);
             });

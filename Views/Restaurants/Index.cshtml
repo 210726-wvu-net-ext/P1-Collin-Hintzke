@@ -4,10 +4,23 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Restaurant Directory</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
+</p>
+
+
+
+
+<p>
+    @using(Html.BeginForm("Index", "Restaurants", FormMethod.Get))
+    { 
+    <b>Search By :  </b> @Html.RadioButton("SearchBy", "Name", true) <text>Name |  </text>
+    @Html.RadioButton("SearchBy", "ZipCode") <text>ZipCode |  </text>
+    @Html.RadioButton("Searchby", "Address")<text>Address</text> <br />
+    @Html.TextBox("Search") <input type="submit" value="Search" />
+    }
 </p>
 <table class="table">
     <thead>
@@ -22,44 +35,48 @@
                 @Html.DisplayNameFor(model => model.ZipCode)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IsFast)
+                Has Fast Food
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.NumberOfStores)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateAdded)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Location)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ZipCode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsFast)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumberOfStores)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateAdded)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Location)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ZipCode)
+                </td>
+                @if (item.IsFast == 1)
+                {
+                    <td>
+                        Yes
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        No
+                    </td>
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumberOfStores)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-controller="Reviews" asp-action="Index" asp-route-id="@item.Id">Reviews</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

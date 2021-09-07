@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using RestaurantReviewer.Models.ViewModels;
 
 namespace RestaurantReviewer.Models.Interfaces
 {
-    interface iReview
+    public interface iReview
     {
         List<Review> GetAllReviews();
-        List<Review> GetReviewByUser(User user, int id);
-        Review NewReview();
-        void DeleteReview(Review review, User user);
+        void NewReview(ReviewDisplay rev);
+        void DeleteReview(int id);
         Review GetReview(int id);
 
-        
+        List<Review> GetAllReviewsByRiD(int id);
+        decimal AverageRating(List<Review> list);
 
     }
 }

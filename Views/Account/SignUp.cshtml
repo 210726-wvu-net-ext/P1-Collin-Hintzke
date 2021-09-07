@@ -1,0 +1,33 @@
+﻿@model RestaurantReviewer.Models.ViewModels.UserSignUpDisplay
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h1>Register New Account</h1>
+
+<div>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form method="post">
+                <p>Username:</p>
+                <input asp-for="Username" type="text" name="username" />
+                <span asp-validation-for="Username" class="text-danger"></span>
+                <p>Password:</p>
+                <input asp-for="Password" type="password" name="password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+                <div class="form-group">
+                    <label asp-for="DoB" class="control-label"></label>
+                    <input asp-for="DoB" class="form-control" />
+                    <span asp-validation-for="DoB" class="text-danger"></span>
+                </div>
+                <br />
+                <input type="submit" class="btn btn-dark" name="submit" value="submit" />
+            </form>
+        </div>
+    </div>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

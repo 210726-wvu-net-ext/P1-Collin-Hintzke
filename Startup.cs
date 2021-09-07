@@ -10,6 +10,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using RestaurantReviewer.Entities;
+using RestaurantReviewer.Models.DataControl;
+using RestaurantReviewer.Models.Interfaces;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using RestaurantReviewer.Models.ViewModels;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace RestaurantReviewer
 {
@@ -26,19 +32,57 @@ namespace RestaurantReviewer
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
-/*
-            services.AddScoped<Irepository, Repository>();
-            services.AddDbContext<RestaurantDbContext>(options =>
-            {
-                options.UseSqlServer(Configuration.GetConnectionString("RestDb");
-                options.LogTo(Console.WriteLine);
-            });*/
-            services.AddControllersWithViews();
+
+           /* services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("restdb")));*/
+
 
             services.AddDbContext<hintrestaurantdbContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("restdb")));
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("restdb"));
+                options.LogTo(Console.WriteLine);
+            });
 
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = "/login";
+                    options.AccessDeniedPath = "/login";
+                    options.Events = new CookieAuthenticationEvents() {
+                        OnSigningIn = async context =>
+                        {
+                            var principal = context.Principal;
+                            if (principal.HasClaim(c => c.Type == ClaimTypes.NameIdentifier))
+                            {
+                                if (principal.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value == "Admin")
+                                {
+                                    var claimsIdentity = principal.Identity as ClaimsIdentity;
+                                    claimsIdentity.AddClaim(new Claim(ClaimTypes.Role, "Admin"));
+                                }
+                            }
+                            await Task.CompletedTask;
+                        },
+                        OnSignedIn = async context =>
+                        {
+                            await Task.CompletedTask;
+                        },
+                        OnValidatePrincipal = async context =>
+                        {
+                            await Task.CompletedTask;
+                        }
+                    };
+                });
+
+            
+
+
+            services.Configure<List<User>>(Configuration.GetSection("Users"));
+
+            services.AddControllersWithViews();
+            services.AddScoped<iRestaurant, RestRepo>();
+            services.AddScoped<iUser, UserRepo>();
+            services.AddScoped<iReview, ReviewRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,6 +101,7 @@ namespace RestaurantReviewer
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {

@@ -12,6 +12,14 @@ namespace RestaurantReviewer.Models
             Name = name;
             Pass = pass;
         }
+        public User(string name, string pass, string doB, int isAdmin)
+        {
+            Name = name;
+            Pass = pass;
+            DoB = doB;
+            IsAdmin = isAdmin;
+        }
+        public User() { }
 
         public string Name { get; set; }
         public string Pass { get; set; }
@@ -21,5 +29,10 @@ namespace RestaurantReviewer.Models
 
 
 
+    }
+    public static class ApplicationRoles
+    {
+        public const string Member = "Member";
+        public const string Admin = "Admin";
     }
 }

@@ -15,7 +15,9 @@ namespace RestaurantReviewer.Entities
         public int Id { get; set; }
         public string Name { get; set; }
         public string Location { get; set; }
+        public string ZipCode { get; set; }
         public int NumberOfStores { get; set; }
+        public decimal Rating { get; set; }
         public int IsFast { get; set; }
         public DateTime DateAdded { get; set; }
 

@@ -11,11 +11,6 @@ namespace RestaurantReviewer.Entities
         {
             Ratings = new HashSet<Rating>();
         }
-        public User(string name, string pass)
-        {
-            Name = name;
-            Pass = pass;
-        }
 
         public int Id { get; set; }
         public string Name { get; set; }
