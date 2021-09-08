@@ -1,13 +1,11 @@
 using RestaurantReviewer.Models;
-using RestaurantReviewer.Models.Interfaces;
 using System;
 using Xunit;
 
-namespace TestProject
+namespace TestProject1
 {
     public class UnitTest1
     {
-
         [Fact]
         public void isAdmin()
         {
@@ -18,11 +16,11 @@ namespace TestProject
                 Pass = "Pass",
                 IsAdmin = 1
             };
-            if(guy.IsAdmin == 1)
+            if (guy.IsAdmin == 1)
             {
                 test = true;
             }
-            
+
 
 
             Assert.True(test, "isAdmin is 1 therefore true");
@@ -64,11 +62,14 @@ namespace TestProject
             if (rev.Score > 5)
             {
                 test = false;
-            } else if(rev.Score < 0){
+            }
+            else if (rev.Score < 0)
+            {
 
                 test = false;
 
-            } else 
+            }
+            else
             {
                 test = true;
             }
@@ -101,14 +102,5 @@ namespace TestProject
             //Then
             Assert.True(result);
         }
-
-
-
-
-
-
-
-
-
     }
 }

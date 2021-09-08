@@ -91,7 +91,18 @@ namespace RestaurantReviewer.Controllers
         [HttpPost]
         public async Task<IActionResult> SignUp(UserSignUpDisplay user)
         {
-            var search = _repo.GetUserByName(user.Username, user.Password);
+            try
+            {
+                var search = _repo.GetUserByName(user.Username, user.Password);
+            } catch
+            {
+
+            } finally
+            {
+                
+            }
+            
+            
             return RedirectToAction("Login");
         }
     }
