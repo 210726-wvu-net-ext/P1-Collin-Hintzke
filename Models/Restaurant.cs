@@ -10,7 +10,7 @@ namespace RestaurantReviewer.Models
     public class Restaurant
     {
         public Restaurant(int id) { }
-
+        public Restaurant() { }
 
         public Restaurant(int id, string name, string location, string zipCode)
         {

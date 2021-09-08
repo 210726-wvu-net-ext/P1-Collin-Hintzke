@@ -8,12 +8,9 @@ namespace RestaurantReviewer.Models.Interfaces
 {
     public interface iUser
     {
-        User GetUser(int id);
         List<User> GetAllUsers();
         int NewUser(UserSignUpDisplay user);
-        string DeleteUser();
-
-        int GetUserByName(UserLoginDisplay user);
+        User GetUserByName(string name, string pass);
 
 
 

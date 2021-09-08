@@ -97,6 +97,13 @@ namespace RestaurantReviewer.Controllers
         [Authorize]
         public IActionResult Edit(int id, RestaurantDisplay rest)
         {
+            if (TempData["UserId"] != null)
+            {
+
+
+
+
+            }
             try
             {
                
@@ -105,7 +112,7 @@ namespace RestaurantReviewer.Controllers
             }
             catch
             {
-                return View();
+                return RedirectToAction(nameof(Index));
             }
             return RedirectToAction(nameof(Index));
         }

@@ -1,4 +1,5 @@
-﻿using RestaurantReviewer.Entities;
+﻿using Microsoft.Extensions.Logging;
+using RestaurantReviewer.Entities;
 using RestaurantReviewer.Models.Interfaces;
 using RestaurantReviewer.Models.ViewModels;
 using System;
@@ -10,19 +11,13 @@ namespace RestaurantReviewer.Models.DataControl
 {
     public class UserRepo : iUser
     {
-
+        private readonly ILogger<UserRepo> _logger;
         private hintrestaurantdbContext _context;
-        public UserRepo(hintrestaurantdbContext context)
+        public UserRepo(hintrestaurantdbContext context, ILogger<UserRepo> logger)
         {
+            _logger = logger;
             _context = context;
         }
-
-
-        public void DeleteUser()
-        {
-            
-        }
-
         public List<User> GetAllUsers()
         {
             return _context.Users.Select(u => new User {
@@ -42,21 +37,12 @@ namespace RestaurantReviewer.Models.DataControl
 
                 if (newUser.Pass == pass)
                 {
-                    return new User(newUser.Name, newUser.Pass, newUser.DoB, newUser.IsAdmin);
+                    return new User(newUser.Id, newUser.Name, newUser.Pass, newUser.DoB, newUser.IsAdmin);
                 }
 
                 return null;
             }
-            else
-            {
-                return null;
-               // return NewUser(user);
-            }
-        }
-
-        private User Login(string v)
-        {
-            throw new NotImplementedException();
+            return null;
         }
 
         public int NewUser(UserSignUpDisplay user)
@@ -66,20 +52,12 @@ namespace RestaurantReviewer.Models.DataControl
             return _context.Users.FirstOrDefault(r => r.Pass == user.Password && r.Name == user.Username).Id;
            
         }
-
-        public User GetUser(int id)
+        public User GetUserByName(string name, string pass)
         {
-            throw new NotImplementedException();
-        }
-        public int GetUserByName(UserLoginDisplay rev)
-        {
-            Entities.User user = _context.Users
-                .FirstOrDefault(player => player.Name == rev.UserName && player.Pass == rev.Password);
-            return user.Id;
-        }
-        string iUser.DeleteUser()
-        {
-            throw new NotImplementedException();
+            Entities.User find = _context.Users
+                .FirstOrDefault(player => player.Name == name && player.Pass == pass);
+            User user = new User(find.Id, find.Name, find.Pass, find.DoB, find.IsAdmin);
+            return user;
         }
     }
 }

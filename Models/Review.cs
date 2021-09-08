@@ -7,8 +7,6 @@ namespace RestaurantReviewer.Models
 {
     public class Review
     {
-        private string Message;
-        private int userId;
 
         public int Id { get; set; }
         public int Score { get; set; }
@@ -35,6 +33,10 @@ namespace RestaurantReviewer.Models
             RestaurantId = restaurantId;
             Comment = message;
             User1 = user;
+        }
+
+        public Review()
+        {
         }
     }
 }

@@ -60,7 +60,7 @@ namespace RestaurantReviewer.Models.DataControl
                 count += Convert.ToDecimal(item.Score);
             }
 
-            return Math.Round(count, 2);
+            return Math.Round(count/list.Count, 2);
         }
 
         public Review GetReview(int id)
