@@ -12,15 +12,16 @@ namespace RestaurantReviewer.Models
             Name = name;
             Pass = pass;
         }
-        public User(string name, string pass, string doB, int isAdmin)
+        public User(int id, string name, string pass, string doB, int isAdmin)
         {
+            Id = id;
             Name = name;
             Pass = pass;
             DoB = doB;
             IsAdmin = isAdmin;
         }
         public User() { }
-
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Pass { get; set; }
         public string DoB { get; set; }

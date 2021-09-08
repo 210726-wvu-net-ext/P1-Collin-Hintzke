@@ -30,12 +30,13 @@ namespace RestaurantReviewer.Controllers
             _repo = repo;
         }
 
+        //displays basic login screen
         public IActionResult Login()
         {
             return View();
         }
 
-
+        //attaches attempted login and attaches Identity.Claims to the user when successfully logged in.
         [HttpPost]
         public async Task<IActionResult> Login(UserLoginDisplay userLogin)
         {
@@ -47,7 +48,11 @@ namespace RestaurantReviewer.Controllers
                 {
                     TempData["isAdmin"] = true;
                 }
-                TempData["UserId"] = _repo.GetUserByName(userLogin);
+                if(user.Id < 1)
+                {
+                    user.Id = 1;
+                }
+                TempData["UserId"] = user.Id;
                 var claims = new List<Claim>
                 {
                 new Claim(ClaimTypes.Name,userLogin.UserName),
@@ -72,24 +77,22 @@ namespace RestaurantReviewer.Controllers
 
             }
 
-            return Redirect("/Shared/Error");
+            return Redirect("/Account/Login");
         }
+        //Displays the sign in page
         [HttpGet]
         public IActionResult SignUp()
         {
             return View();
         }
 
+
+        //does a search for users, then redirects the user to login when successfully
         [HttpPost]
         public async Task<IActionResult> SignUp(UserSignUpDisplay user)
         {
+            var search = _repo.GetUserByName(user.Username, user.Password);
             return RedirectToAction("Login");
         }
-
-
-
-
-
-
     }
 }

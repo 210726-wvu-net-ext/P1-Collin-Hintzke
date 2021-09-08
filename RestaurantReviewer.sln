@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestRestaurantReviewer", "TestRestaurantReviewer\TestRestaurantReviewer.csproj", "{1DBB6C42-F556-4D58-B7AB-582D80788847}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject", "..\TestProject\TestProject.csproj", "{AB969002-2253-466E-9CBF-60297508098A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,10 +22,10 @@ Global
 		{F64999DA-DECE-47AF-A24D-AD866E512B08}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F64999DA-DECE-47AF-A24D-AD866E512B08}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F64999DA-DECE-47AF-A24D-AD866E512B08}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1DBB6C42-F556-4D58-B7AB-582D80788847}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1DBB6C42-F556-4D58-B7AB-582D80788847}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1DBB6C42-F556-4D58-B7AB-582D80788847}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1DBB6C42-F556-4D58-B7AB-582D80788847}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB969002-2253-466E-9CBF-60297508098A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB969002-2253-466E-9CBF-60297508098A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB969002-2253-466E-9CBF-60297508098A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB969002-2253-466E-9CBF-60297508098A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
