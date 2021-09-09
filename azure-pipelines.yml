@@ -52,5 +52,5 @@ steps:
     SonarCloud: 'SONAR_TOKEN'
     organization: '210726-wvu-net-ext'
     scannerMode: 'MSBuild'
-    projectKey: '620c142669629f08d58a2cedd5be86d531b41731'
+    projectKey: '37a4da14016b723b21036d321db297c0139f07a5'
     projectName: '210726-wvu-net-ext/P1-Collin-Hintzke'
