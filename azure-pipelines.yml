@@ -45,7 +45,7 @@ steps:
     feedsToUse: 'select'
     
 
-- script: dotnet build --configuration $(buildConfiguration)
+- script: dotnet build --configuration $(buildConfiguration) $(solution)
   displayName: 'dotnet build $(buildConfiguration)'
 - task: VisualStudioTestPlatformInstaller@1
   inputs:
