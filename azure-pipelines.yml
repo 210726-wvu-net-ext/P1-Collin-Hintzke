@@ -1,5 +1,10 @@
 trigger:
-- main
+  branches:
+    include:
+    - main
+  paths:
+    include:
+    - P1-Collin-Hintzke
 
 pool:
   vmImage: 'windows-latest'
