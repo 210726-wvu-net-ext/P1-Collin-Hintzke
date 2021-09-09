@@ -2,9 +2,6 @@ trigger:
   branches:
     include:
     - main
-  paths:
-    include:
-    - P1-Collin-Hintzke
 
 pool:
   vmImage: 'windows-latest'
@@ -45,8 +42,9 @@ steps:
     feedsToUse: 'select'
     
 
-- script: dotnet build --configuration $(buildConfiguration) $(solution)
+- script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
+  workingDirectory: 'RestaurantReviewer'
 - task: VisualStudioTestPlatformInstaller@1
   inputs:
     packageFeedSelector: 'nugetOrg'
