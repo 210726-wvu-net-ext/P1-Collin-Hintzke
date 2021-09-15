@@ -18,3 +18,4 @@ namespace RestaurantReviewer.Models.ViewModels
 
     }
 }
+bad
