@@ -21,5 +21,3 @@ To-do list:
 
 ## Usage
 Read other user's reviews on restaurant's you're curious about
-
-
